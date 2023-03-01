@@ -1,0 +1,72 @@
+<main role="main">     
+  <hr>
+  <div class="container"> 
+    <div class="card">
+      <h4 class="card-header"><strong>Listado de Equipos</strong></h4>              
+      <div class="card-body">
+        <button type="button" class="btn btn-primary" data-ng-click="$ctrl.nuevoEquipo={}" data-ng-disabled="$ctrl.nuevoEquipo!=null" role="button"><i class="fas fa-file" aria-hidden="true"></i> Nuevo</button>            
+        <hr>
+        <table class="table table-hover">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Descripción</th>
+              <th scope="col">Operaciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-ng-repeat="e in $ctrl.equipos">
+              <td>{{ e.id }}</td>
+              <td>{{ e.nombre }}</td>
+              <td>{{ e.descripcion }}</td>
+              <td>
+                <button type="button" class="btn btn-success btn-sm" title="Editar" data-ng-click="$ctrl.editar(e.id)"><i class="fas fa-pencil-alt" aria-hidden="true"></i></button>
+                <button type="button" class="btn btn-success btn-sm" title="Eliminar" data-ng-click="$ctrl.borrar(e.id)"><i class="fas fa-trash" aria-hidden="true"></i></button>
+              </td>
+            </tr>                              
+          </tbody>
+        </table>
+
+        <div class="row align-items-center">
+          <button type="button" class="btn btn-secondary" data-ng-click="$ctrl.volver()">&laquo; Volver</button>
+        </div>
+      </div>
+    </div>
+  </div> <!-- /container -->
+  <div class="container" data-ng-if="$ctrl.nuevoEquipo"> 
+
+        <div class="card">
+          <h4 class="card-header" data-ng-if="!$ctrl.nuevoEquipo.id"><strong>Datos del Nuevo Equipo</strong></h4>
+          <h4 class="card-header" data-ng-if="$ctrl.nuevoEquipo.id"><strong>Editar el Equipo</strong></h4>             
+          <div class="card-body">
+            <form class="needs-validation" novalidate name="formulario">
+                           
+              <div class="row">
+                <div class="col-md-6"> 
+                  <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" class="form-control" data-ng-class="{'is-invalid': formulario.nombre.$invalid &&  formulario.nombre.$dirty }" id="nombre" name="nombre" placeholder="Escriba el nombre del equipo" data-ng-model="$ctrl.nuevoEquipo.nombre" required>
+                    <div class="invalid-feedback">
+                            Debe ingresar un nombre
+                    </div>
+                  </div>
+                </div>                
+              </div> 
+              <div class="row">
+                <div class="col-md-6"> 
+                  <div class="form-group">
+                    <label for="descripcion">Descripción</label>
+                    <textarea class="form-control" data-ng-class="{'is-invalid': formulario.descripcion.$invalid &&  formulario.descripcion.$dirty }" name="descripcion" id="descripcion" data-ng-model="$ctrl.nuevoEquipo.descripcion" rows="2"></textarea>
+                  </div> 
+                </div>                
+              </div> 
+              <hr>
+              <button type="submit" title="Guardar el registro." data-ng-disabled="formulario.$invalid" data-ng-click="$ctrl.guardar()" class="btn btn-primary">Guardar</button>
+              <button class="btn btn-secondary" type="button" data-ng-click="$ctrl.nuevoEquipo=null">Descartar</button>  
+            </form>
+          </div>
+        </div>
+      </div> <!-- /container -->
+</main>
+

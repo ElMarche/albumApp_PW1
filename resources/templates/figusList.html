@@ -1,0 +1,74 @@
+<!--
+<div class="jumbotron">
+    <div class="container">
+		<h3>Encuentra las figus que te gustan.</h3>
+		Puede buscar por Nombre y por Equipo...
+		<form class="form-inline">
+			<input type="text" data-ng-model="$ctrl.query" class="form-control mb-3" id="buscarFigu" placeholder="Escriba un nombre">&nbsp;
+
+			<select data-ng-model="$ctrl.unEquipo" data-ng-options="e as e.nombre for e in $ctrl.equipos track by e.id" class="custom-select custom-select mb-3">
+		    	<option value="" selected disabled data-ng-value="null">Seleccione un Equipo</option>
+			</select>&nbsp;
+			<button type="submit" class="btn btn-primary mb-3">Buscar</button>
+		</form>
+    </div>
+</div>
+-->
+    <hr>
+
+	<div class="container-fluid"> 
+		<div class="row align-items-center">
+			<div class="col align-self-center">	
+				<h2 class="font-weight-bold text-center text-capitalize">FIGURITAS DISPONIBLES</h2>
+				<hr>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid" data-ng-if="$ctrl.administrador()"> 
+		<div class="row align-items-center">
+			<div class="col align-self-center">
+				<hr>
+				<button type="button" class="btn btn-primary" data-ng-click="$ctrl.crearFigurita()">Crear Nueva Figurita</button>
+				<hr>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid" data-ng-if="!$ctrl.administrador()"> 
+		<div class="row align-items-center">
+			<div class="col align-self-center">
+				<hr>
+				<button type="button" class="btn btn-primary" data-ng-click="$ctrl.obtenerFigurita()">Obtener una Figurita</button>
+				<button type="button" class="btn btn-primary" data-ng-click="$ctrl.obtenerFiguritaRepetida()">Obtener una Figurita Repetida</button>
+				<hr>
+			</div>
+		</div>
+	</div>
+<div class="container-fluid">
+    <div class="row d-flex justify-content-center">
+    	<div class="col-md-6" data-ng-repeat="figurita in $ctrl.figuritas">
+			    
+			<div class="media" style="padding: 10px">            
+			   <img class="align-self-center mr-3" data-ng-attr-src="{{ figurita.imagen || 'resources/static/images/placeholder-male.jpg' }}" alt="" width="150" height="190">
+			   <div class="media-body">
+					<h4>{{figurita.nombre}}</h4 >
+	     			<h6 class="card-title"><strong>Puesto: </strong><span>{{ figurita.puesto }}</span></h6>
+	     			<h6 class="card-title"><strong>Fecha Nacimiento: </strong><span>{{ figurita.fechanacimiento | date:"dd/MM/yyyy" }}</span></h6>                
+	     			<p>{{ figurita.descripcion }}</p>
+	     			<p><a class="btn btn-info btn-sm" data-ng-click="$ctrl.detalle(figurita)" role="button">Ver detalle &raquo;</a></p>       
+			   </div>
+			</div>
+			  
+    	</div>
+
+    	<div class="container-fluid" data-ng-hide="$ctrl.figuritas.length > 0"> 
+          <div class="row justify-content-center">
+           <h6 class="font-weight-bold text-center text-capitalize">Haga clic en "Obtener una Figurita"</h6>
+          </div>
+        </div>
+        </div>
+    </div>
+                  
+    <hr>	
+</div> <!-- /container -->

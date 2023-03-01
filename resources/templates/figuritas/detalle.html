@@ -1,0 +1,167 @@
+
+      
+<div class="container" data-ng-hide="$ctrl.figurita.id==null">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="row">         
+      <img class="rounded mx-auto d-block" data-ng-src="{{ $ctrl.figurita.imagen || 'resources/static/images/placeholder-male.jpg' }}" alt="" width="200" height="250" style="padding: 10px 10px 10px">
+      </div>
+    </div>
+      <div class="col-md-9">
+          <div class="card">
+            <h4 class="card-header">Detalle de <strong>{{ $ctrl.figurita.nombre }}</strong></h4>              
+            <div class="card-body">
+            	<h5 class="card-title"><strong>Equipo: </strong> <span>{{ $ctrl.equipo.nombre }}</span></h5>
+              <h5 class="card-title"><strong>Posición: </strong> <span>{{ $ctrl.figurita.puesto }}</span></h5>
+              <h6 class="card-title"><strong>Fecha Nacimiento: </strong> <span>{{ $ctrl.figurita.fechanacimiento | date:"dd/MM/yyyy" }}</span></h6>                
+              <h6 class="card-title"><strong>Altura: </strong><span>{{ $ctrl.figurita.altura }}</span></h6>
+              <p class="card-text">{{ $ctrl.figurita.descripcion }}</p>
+              
+              <div class="card bg-light mb-3" >
+                <div class="card-body">
+                  <h5 class="card-title">Detalle de Figurita</h5>
+                  <p class="card-text" ng-bind-html="$ctrl.figurita.detalle"></p>
+                </div>
+              </div>
+
+            </div>
+            <p>
+              <button class="btn btn-secondary btn-sm" data-ng-click="$ctrl.volver()" type="button">&laquo; Volver</button>
+              <button class="btn btn-success btn-sm" data-ng-if="$ctrl.administrador()" data-ng-click="$ctrl.editar($ctrl.figurita.id, $ctrl.equipo)" type="button"> Editar </button>
+              <button class="btn btn-danger btn-sm" data-ng-if="$ctrl.administrador()" data-ng-click="$ctrl.borrar($ctrl.figurita.id)" type="button"> Borrar </button>
+            </p>
+          </div>  
+      </div>
+  </div>  
+</div> <!-- container -->
+
+
+
+<form class="needs-validation" novalidate name="formulario">
+  <div class="container" data-ng-if="$ctrl.nuevaFigurita || $ctrl.figurita.id==null">
+
+    <div class="card">
+        <h4 class="card-header" data-ng-if="!$ctrl.nuevaFigurita.id"><strong>Datos de la Nueva Figurita</strong></h4>
+        <h4 class="card-header" data-ng-if="$ctrl.nuevaFigurita.id"><strong>Editar la Figurita</strong></h4>
+
+    <div class="row">
+      <div class="col-md-3">
+        <img class="rounded mx-auto d-block" id="imagePreview" data-ng-src="{{ $ctrl.nuevaFigurita.imagen || 'resources/static/images/placeholder-male.jpg' }}" alt="" width="200" height="250">
+      </div>
+        <div class="col-md-9">
+            <div class="card">
+
+            <div class="row">
+                <div class="col-md-6"> 
+                  <div class="form-group">
+                    <label for="imagen"><strong>URL imagen:</strong></label>
+                    <input type="url" id="imagen" name="imagen" data-ng-model="$ctrl.nuevaFigurita.imagen" data-ng-class="{'is-invalid': formulario.imagen.$invalid && formulario.imagen.$dirty}" required>
+                  </div>
+                </div>                
+              </div>
+
+            <div class="row">
+                <div class="col-md-6"> 
+                  <div class="form-group">
+                    <label for="nombre"><strong>Nombre:</strong></label>
+                      <input type="text" class="form-control" data-ng-class="{'is-invalid': formulario.nombre.$invalid &&  formulario.nombre.$dirty }" id="nombre" name="nombre" placeholder="Escriba nombre de la figurita" data-ng-model="$ctrl.nuevaFigurita.nombre" required>
+                      <div class="invalid-feedback">
+                                  Debe ingresar un nombre
+                      </div>
+                  </div>
+                </div>                
+              </div>
+
+              <div class="row">
+                <div class="col-md-6"> 
+                  <div class="form-group">
+                    <label for="equipo"><strong>Equipo:</strong></label>
+                    <select data-ng-model="$ctrl.unEquipo" data-ng-options="e as e.nombre for e in $ctrl.equipos track by e.id" class="custom-select custom-select mb-3" data-ng-class="{'is-invalid': formulario.equipo.$invalid && formulario.equipo.$dirty }" id="equipo" name="equipo" required>  
+                    </select>&nbsp;
+                    <div class="invalid-feedback">
+                                  Debe ingresar un equipo
+                    </div>
+                  </div>
+                </div>                
+              </div>
+
+              <div class="row">
+                <div class="col-md-6"> 
+                  <div class="form-group">
+                    <label for="puesto"><strong>Posición:</strong></label>
+                    <select data-ng-model="$ctrl.nuevaFigurita.puesto" class="custom-select custom-select mb-3" data-ng-class="{'is-invalid': formulario.puesto.$invalid && formulario.puesto.$dirty }" id="puesto" name="puesto" required>
+                      <option data-ng-if="$ctrl.nuevaFigurita.puesto" selected>{{ $ctrl.nuevaFigurita.puesto }}</option>
+                      <option data-ng-if="$ctrl.nuevaFigurita.puesto!='Arquero'" value="Arquero">Arquero</option>
+                      <option data-ng-if="$ctrl.nuevaFigurita.puesto!='Defensor'" value="Defensor">Defensor</option>
+                      <option  data-ng-if="$ctrl.nuevaFigurita.puesto!='Volante'" value="Volante">Volante</option>
+                      <option data-ng-if="$ctrl.nuevaFigurita.puesto!='Delantero'" value="Delantero">Delantero</option>
+                    </select>&nbsp;
+                    <div class="invalid-feedback">
+                                Debe ingresar una posición
+                    </div>
+                  </div>
+                </div>                
+              </div>
+
+              <div class="row">
+                <div class="col-md-6"> 
+                  <div class="form-group">
+                    <label for="fechanacimiento"><strong>Fecha de Nacimiento:</strong></label>
+                    <input type="date" max="3000-01-01" onfocus="this.max=new Date().toISOString().split('T')[0]" data-ng-model="$ctrl.nuevaFigurita.fechanacimiento" class="form-control" data-ng-class="{'is-invalid': formulario.fechanacimiento.$invalid && formulario.fechanacimiento.$dirty }" id="fechanacimiento" name="fechanacimiento" required>
+                    <div class="invalid-feedback">
+                                Debe ingresar una fecha
+                    </div>
+                  </div>
+                </div>                
+              </div>
+
+              <div class="row">
+                <div class="col-md-6"> 
+                  <div class="form-group">
+                    <label for="altura"><strong>Altura:</strong></label>
+                    <input type="text" pattern="\d{1}(\.)\d{2}" data-ng-model="$ctrl.nuevaFigurita.altura" name="altura" id="altura" class="form-control" data-ng-class="{'is-invalid': formulario.altura.$invalid && formulario.altura.$dirty}" required>
+                    <div class="invalid-feedback">
+                                Debe ingresar una altura
+                    </div>
+                  </div>
+                </div>                
+              </div>
+
+              <div class="row">
+                <div class="col-md-6"> 
+                  <div class="form-group">
+                    <label for="descripcion"><strong>Lugar de Nacimiento:</strong></label>
+                    <textarea class="form-control" data-ng-model="$ctrl.nuevaFigurita.descripcion" name="descripcion" id="descripcion" data-ng-class="{'is-invalid': formulario.descripcion.$invalid && formulario.descripcion.$dirty}" rows="2" required></textarea>
+                    <div class="invalid-feedback">
+                                Debe ingresar lugar de nacimiento
+                    </div>
+                  </div>
+                </div>                
+              </div>
+
+              <div class="row">
+                <div class="col-md-9"> 
+                  <div class="form-group">
+                    <label for="detalle"><strong>Detalle:</strong></label>
+                    <textarea ui-tinymce="$ctrl.tinymceOptions" class="form-control" data-ng-model="$ctrl.nuevaFigurita.detalle" name="detalle" id="detalle" data-ng-class="{'is-invalid': formulario.detalle.$invalid && formulario.detalle.$dirty}" rows="7" required></textarea>
+                    <div class="invalid-feedback">
+                                Debe ingresar el detalle
+                    </div>
+                  </div>
+                </div>                
+              </div>
+
+              <div class="form-group">
+                <p>
+                <button type="button" class="btn btn-primary btn-sm" data-ng-if="$ctrl.figurita.id==null" data-ng-click="$ctrl.volver()">&laquo; Volver</button>
+                <button type="button" class="btn btn-success btn-sm" data-ng-click="$ctrl.guardar()" data-ng-disabled="formulario.$invalid"> Guardar cambios</button>
+                <button type="button" class="btn btn-danger btn-sm" data-ng-click="$ctrl.descartar()"> Descartar cambios</button>
+                </p>
+              </div>
+                            
+            </div>  
+        </div>
+    </div>  
+   </div>
+  </div>
+</form>

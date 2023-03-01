@@ -1,0 +1,53 @@
+<main role="main">     
+  <hr>
+  <div class="container"> 
+    <div class="card">
+      <h4 class="card-header"><strong>Formulario de registro</strong></h4>              
+      <div class="card-body">
+        <form class="needs-validation" novalidate name="formulario">              
+          <div class="row">
+            <div class="col-md-3"> 
+              <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" class="form-control" data-ng-class="{'is-invalid': formulario.nombre.$invalid &&  formulario.nombre.$dirty }" id="nombre" name="nombre" placeholder="Escriba su nombre" data-ng-model="$ctrl.nuevoUsuario.nombre" required>
+                <div class="invalid-feedback">
+                    Debe ingresar un Nombre
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3"> 
+              <div class="form-group">
+                <label for="email">Correo electrónico</label>
+                <input type="email" class="form-control" data-ng-class="{'is-invalid': formulario.email.$invalid &&  formulario.email.$dirty }" id="email" name="email" placeholder="Escriba su correo electrónico" data-ng-model="$ctrl.nuevoUsuario.email" required>
+                <div class="invalid-feedback">
+                  Debe ingresar una dirección de E-mail
+                </div>
+              </div> 
+            </div>
+            <div class="col-md-3"> 
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" data-ng-class="{'is-invalid': formulario.username.$invalid &&  formulario.username.$dirty }" id="username" name="username" placeholder="Escriba su nombre de usuario" data-ng-model="$ctrl.nuevoUsuario.username" required>
+                <div class="invalid-feedback">
+                  Debe ingresar un Nombre de Usuario
+                </div>
+              </div>
+            </div>    
+            <div class="col-md-3"> 
+              <div class="form-group">
+                <label for="clave">Clave</label>
+                <input type="password" class="form-control" data-ng-class="{'is-invalid': formulario.clave.$invalid &&  formulario.clave.$dirty }" id="clave" name="clave" placeholder="Escriba su clave de acceso" data-ng-model="$ctrl.nuevoUsuario.clave" required>
+                <div class="invalid-feedback">
+                  Debe ingresar una Clave
+                </div>
+              </div>
+            </div>
+          </div>                  
+          <hr>
+          <button type="button" data-ng-disabled="formulario.$invalid" data-ng-click="$ctrl.registrar()" title="Quiero registrarme." class="btn btn-primary">Registrarse</button>
+          <button class="btn btn-secondary" type="button" data-ng-click="$ctrl.cancelar()">Cancelar</button>
+        </form>
+      </div>
+    </div>
+  </div> <!-- /container -->
+</main>

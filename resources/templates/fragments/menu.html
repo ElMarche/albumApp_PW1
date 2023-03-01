@@ -1,0 +1,32 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="http://localhost/Album_FinalPW1/">FigusApp</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="http://localhost/Album_FinalPW1/">Inicio</a>
+            </li>
+            <li data-ng-if="$ctrl.autenticado()" class="nav-item">
+              <a class="nav-link" href="#!/figusList">Figuritas</a>
+            </li>
+            <li data-ng-if="$ctrl.autenticado() && $ctrl.administrador()" class="nav-item">
+              <a class="nav-link" href="#!/equipos">Equipos</a>
+            </li>
+            <li data-ng-if="$ctrl.autenticado() && $ctrl.administrador()" class="nav-item">
+              <a class="nav-link" href="#!/usuarios">Usuarios</a>
+            </li>
+            <li data-ng-if="$ctrl.autenticado() && !$ctrl.administrador()" class="nav-item">
+              <a class="nav-link" href="#!/canje">Canje</a>
+            </li>        
+          </ul>
+          
+            <span class="navbar-text" data-ng-if="$ctrl.autenticado() && $ctrl.mostrarNombre()" data-ng-show="$ctrl.usuario.nombre!=null">{{$ctrl.usuario.nombre}}</span>  
+          
+          <button type="button" class="btn btn-primary" data-ng-hide="$ctrl.autenticado()" data-ng-click="$ctrl.login()">Ingresar</button>&nbsp;
+          <button type="button" class="btn btn-primary" data-ng-hide="$ctrl.autenticado()" data-ng-click="$ctrl.registro()">Registrarse</button>
+          <button type="button" class="btn btn-primary" data-ng-show="$ctrl.autenticado()" data-ng-click="$ctrl.salir()">Salir</button>
+        </div>
+      </nav>

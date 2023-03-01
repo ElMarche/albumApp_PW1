@@ -1,0 +1,39 @@
+<div class="container"> 
+
+  <div class="card">
+    <h4 class="card-header"><strong>Listado de Usuarios</strong></h4>              
+    <div class="card-body">            
+      <hr>
+      
+      <table class="table table-hover">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Email</th>
+            <th scope="col">Estatus</th>
+            <th scope="col">Operaciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-ng-repeat="u in $ctrl.usuarios">
+            <td>{{ u.id }}</td>
+            <td>{{ u.nombre }}</td>
+            <td>{{ u.email }}</td>
+            <td>{{ u.estatus }}</td>
+            <td>
+              <button data-ng-show="!$ctrl.chkIdUsuario(u.id)" data-ng-click="$ctrl.borrar(u.id)" class="btn btn-success btn-sm" title="Eliminar el registro."><i class="fas fa-trash" aria-hidden="true"></i></button>
+              <button data-ng-show="!$ctrl.chkIdUsuario(u.id)" data-ng-disabled="!$ctrl.chkEstatus(u.estatus)" data-ng-click="$ctrl.bloquear(u)" class="btn btn-success btn-sm" title="Bloquear el acceso al sistema para este usuario."><i class="fas fa-lock" aria-hidden="true"></i></button>	
+              <button data-ng-show="!$ctrl.chkIdUsuario(u.id)" data-ng-disabled="$ctrl.chkEstatus(u.estatus)" data-ng-click="$ctrl.desbloquear(u)" class="btn btn-success btn-sm" title="Permitir el acceso al sistema a este usuario."><i class="fas fa-unlock" aria-hidden="true"></i></button>
+            </td>
+          </tr >
+                                         
+        </tbody>
+      </table>
+      <div class="row align-items-center">
+          <button type="button" class="btn btn-secondary" data-ng-click="$ctrl.volver()">&laquo; Volver</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> <!-- /container -->
